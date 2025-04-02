@@ -18,6 +18,26 @@ recht logisch
 Parameter mit Anfangsbuchstaben abkürzbatr
 #>
 
+<#
+Ausführen:
+.\[Dateiname].ps1
+
+C:\Users\sem204\[Dateiname].ps1
+Im Ordner: .\[Dateiname].ps1
+: für Ordner drüber
+#>
+
+Get-ExecutionPolicy #Schauen, ob ps1 ausgeführt werden darf
+
+#Skript Parameter übergeben, das hier sind Standartwerte, muss am Anfang der Datei stehen!
+Param(
+    $variable = "",
+    $b = 1
+)
+
+#Aufruf, Param kann ich aber auch weg lassen, dann Standartwerte: 
+.\Datei.ps1 -var "sth" -Print $false
+
 Get-Help <#cmdlets#>
 Set-Alias -Name <#eigener Alias#> -value <#Cmdlets#>
 <#Aliasse nur für Sitzung! man kann quasi einen Befehl ein erstezen#>
@@ -30,6 +50,8 @@ echo
 Read-Host -Prompt "Geben Sie etwas ein." #input
 
 clear <#leere die Commandozeile#>
+
+$var.count #len() ; wenn es für Objekt da ist
 
 <#Variablen, ähnlich wie in C nur ohne Deklaration wie in Python (auch mit Umgang) (Typecasting nicht notwendig), interpretiert im Kontext#>
 <#speichert intern als Objekte und diese wieder als json#>
@@ -52,6 +74,7 @@ $false <#... 0#>
 [String]$var
 
 <#Automatische Var: die immer da sind (wie bool), nur lesbar#>
+$_ #aktuelles Element (in Schleife)
 
 $($A) #interpretiere als PowerShell-Befehl
 "$(Get-Service -n vss) + 3" #Bsp.
@@ -95,8 +118,6 @@ Get-service | get-member #Aufbau eines Objekts !!Auch Methoden!!
 
 -whatif #Was passiert, wenn Du den Befehl ausführst?
 
-Get-ExecutionPolicy #Schauen, ob ps1 ausgeführt werden darf
-
 $var = Get-Service -Name ` <#Befehl über mehrere Zeilen#>
 wuauserv
 
@@ -112,6 +133,11 @@ for ($i = 1; $i -le 10; $i++)
 {
     #$i ist eine automatische Variable zum DUrchzählen
     <# Action that will repeat until the condition is met #>
+}
+
+#für jedes Item dieser Liste tue das; Alias: %
+foreach ($currentItemName in $collection) {
+    <# $currentItemName is the current item #>
 }
 
 while (<#while#>) {
@@ -140,3 +166,10 @@ continue #brich ab und gehe zum nächsten Schleifendurchlauf
 :Springezu
 
 :Springezu {$var = 0}
+
+function Test ($var)
+{
+    #dwkd
+}
+Test -var 99
+#wie returnt man Werte?
