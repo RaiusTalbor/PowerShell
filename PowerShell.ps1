@@ -2,12 +2,13 @@
 
 <#PS:
 Das Schöne: Immer und überall auf Windows, ursprünglich für Server
-mit PowerShell oder ISE#>
+mit PowerShell oder ISE - oder halt hier#>
 
 <#Aufbau:
 groß/klein egal
 anhand Syntax leicht erratbar
 mit Tab automatisch ausfüllen
+Tabs, Leerzeichen egal
 
 Verb-Subjekt -Parameter Argument
 
@@ -23,6 +24,11 @@ Set-Alias -Name <#eigener Alias#> -value <#Cmdlets#>
 
 get-alias
 
+Write-Host #schreibe etwas
+echo
+
+Read-Host -Prompt "Geben Sie etwas ein." #input
+
 clear <#leere die Commandozeile#>
 
 <#Variablen, ähnlich wie in C nur ohne Deklaration wie in Python (auch mit Umgang) (Typecasting nicht notwendig), interpretiert im Kontext#>
@@ -30,6 +36,9 @@ clear <#leere die Commandozeile#>
 $var = 0
 $var = "Text"
 $A + $B
+<#Var sind sind in allen und unterblöcken#>
+$Global:var #überall
+$Local:var #nur in dem Block
 
 <#formated Strings#>
 "$A + $B" <#mit doppelten, mit einfachen nicht#>
@@ -85,3 +94,49 @@ Get-service | get-member #Aufbau eines Objekts !!Auch Methoden!!
 #* davor: alles
 
 -whatif #Was passiert, wenn Du den Befehl ausführst?
+
+Get-ExecutionPolicy #Schauen, ob ps1 ausgeführt werden darf
+
+$var = Get-Service -Name ` <#Befehl über mehrere Zeilen#>
+wuauserv
+
+if (<#condition#>) {
+    <# Action to perform if the condition is true #>
+} elseif (<#condition#>) {
+    <# Action when this condition is true #>
+} else {
+    <# Action when all if and elseif conditions are false #>
+}
+
+for ($i = 1; $i -le 10; $i++)
+{
+    #$i ist eine automatische Variable zum DUrchzählen
+    <# Action that will repeat until the condition is met #>
+}
+
+while (<#while#>) {
+    #sth
+}
+
+do {
+    
+} while (<# Condition that stops the loop if it returns false #>)
+
+<#Warum?#>
+do {
+    
+} until (<# Condition that stops the loop if it returns true #>)
+
+switch ($x) 
+{
+    condition {}
+    Default {}
+}
+
+break #herausspringen aus Schleife
+continue #brich ab und gehe zum nächsten Schleifendurchlauf
+
+#goto möglich
+:Springezu
+
+:Springezu {$var = 0}
