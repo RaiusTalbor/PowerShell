@@ -1,2 +1,0 @@
-# PowerShell
-Lernen, üben, testen
