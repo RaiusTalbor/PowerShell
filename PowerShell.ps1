@@ -27,6 +27,8 @@ Im Ordner: .\[Dateiname].ps1
 : für Ordner drüber
 #>
 
+#Tipp: Objekte am besten vorher anschauen, da hilft an vielen Stellen weiter
+
 Get-ExecutionPolicy #Schauen, ob ps1 ausgeführt werden darf
 
 #Skript Parameter übergeben, das hier sind Standartwerte, muss am Anfang der Datei stehen!
@@ -75,11 +77,27 @@ $false <#... 0#>
 
 <#Automatische Var: die immer da sind (wie bool), nur lesbar#>
 $_ #aktuelles Element (in Schleife)
+$null #leer, nicht existent
 
 $($A) #interpretiere als PowerShell-Befehl
 "$(Get-Service -n vss) + 3" #Bsp.
 $vss = Get-Service -n vss
 $vss.Name #kann auch ein Objekt sein
+
+#Liste:
+#https://learn.microsoft.com/de-de/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.5
+$liste = @(1, 2, 3)
+$liste = Write-Output 1 2 3 4
+$liste[1]
+$liste[1,2,3] #index 1, 2, 3 --> 3, 0, 3
+$liste[1..3] #1 bis 3
+$liste[-1]
+$liste.count #len()
+$liste[0].name #(wenn index 0 ein Objekt)
+switch ($liste) {
+    a {  }
+    Default {}
+}
 
 <#Pipeline: | #>
 #Ausgabe als Eingabe weiterführen
@@ -91,6 +109,11 @@ ft spalte1, spalte2 #gibt nur das aus
 # * Kleenscher-Stern
 
 Get-service | get-member #Aufbau eines Objekts !!Auch Methoden!!
+
+Get-Item #kann Objekt "holen" --> everything is a obj
+
+Get-ChildItem $pfad -directory #zeigt alle Unterordner an
+dir $pfad -Directory #tut dasselbe
 
 <#Operatoren#>
 
@@ -131,7 +154,7 @@ if (<#condition#>) {
 
 for ($i = 1; $i -le 10; $i++)
 {
-    #$i ist eine automatische Variable zum DUrchzählen
+    #$i ist eine automatische Variable zum Durchzählen
     <# Action that will repeat until the condition is met #>
 }
 
@@ -163,13 +186,31 @@ break #herausspringen aus Schleife
 continue #brich ab und gehe zum nächsten Schleifendurchlauf
 
 #goto möglich
-:Springezu
-
-:Springezu {$var = 0}
+:Springezu #spingt woanders hin
+:Springezu {$var = 0} #tut genau das
 
 function Test ($var)
 {
     #dwkd
+    return $var
 }
-Test -var 99
-#wie returnt man Werte?
+$var1 = Test -var 99
+
+#Signaturen sind möglich gegen versehentliches Ändern
+
+-filter where{<#Bedingung#>} 
+#beim Filtern, die Eigenschaft true
+-ErrorAction:SilentlyContinue #mache weiter, auch wenn Fehler auftritt (bei Prüfung, wenn etwas nicht da ist)
+
+New-Item -name $name -ItemType directory -path path #legt etwas neues an
+
+<#über Tasks/ChromeJob/Aufgabenplanung automatisierbar#>
+
+#Messagebox
+$msg = "Hi!"
+$targetPC = "sem205"
+
+Invoke-Command -ComputerName $targetPC -ScriptBlock {
+    param($message)
+    msg * $message
+} -ArgumentList $msg
