@@ -1,5 +1,4 @@
-﻿
-Param(
+﻿Param(
         $strDatei     = "",
         $strDateiJSON = "",
         $Print        = $true
@@ -24,4 +23,3 @@ if($Print -eq $true)
 # Export als JSON
 
 #Get-Service | ConvertTo-JSON | Out-File $strDateiJSON
-
