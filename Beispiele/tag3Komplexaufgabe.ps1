@@ -3,13 +3,15 @@ RL
 Projektordner werden automatisch mit jeweiligen ordner angelegt
 Abteilungsordner werden mit jeweiligen Projektordner angelegt
 Berechtigungen werden richtig verteilt
+
+--> mögliche Erweiterung: Vorlagenordner nur kopieren statt komplett neu erstellen
 #>
 
 <#übernommene Parameter ---------------------------------------------------------#>
 
 Param(
-    $projektname = "Finn", #Projektname soll übergeben werden
-    $projektberechtigungsgruppe = "sem205" #Projektberechtigung soll übergeben werden
+    $projektname = "", #Projektname soll übergeben werden
+    $projektberechtigungsgruppe = "" #Projektberechtigung soll übergeben werden
 )
 
 <#Module ---------------------------------------------------------#>
