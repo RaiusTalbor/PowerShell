@@ -46,5 +46,3 @@ for( $iA = 0; $iA -lt $objServices.Count; $iA++)
 {
     Write-Host $objServices[$iA].Name
 }
-
-
