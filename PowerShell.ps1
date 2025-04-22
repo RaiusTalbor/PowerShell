@@ -235,7 +235,7 @@ $var1 = Test -var 99
 
 # Messagebox -----------------------------------------------------------------
 $msg = "Hi!"
-$targetPC = "sem205"
+$targetPC = "sem205" #muss im selben Netzwerk sein
 
 Invoke-Command -ComputerName $targetPC -ScriptBlock {
     param($message)
